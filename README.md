@@ -1,3 +1,5 @@
+# Please go to OUR OWN WIKI PAGE for basic information like objective, things to do
+
 # Drywall
 
 A website and user system starter. Implemented with Express and Backbone.
