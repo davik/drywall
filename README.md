@@ -1,6 +1,6 @@
 # Please go to OUR OWN WIKI PAGE for basic information like objective, things to do
 
-# Drywall
+# Project Healthy Based on DRYWALL User Management
 
 A website and user system starter. Implemented with Express and Backbone.
 
