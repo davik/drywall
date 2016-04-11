@@ -7,7 +7,8 @@ exports = module.exports = function(app, mongoose) {
     email: { type: String, unique: true },
     roles: {
       admin: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
-      account: { type: mongoose.Schema.Types.ObjectId, ref: 'Account' }
+      account: { type: mongoose.Schema.Types.ObjectId, ref: 'Account' },
+      dataEntryOperator: {type: mongoose.Schema.Types.ObjectId, ref: 'DataEntryOperator'}
     },
     isActive: String,
     timeCreated: { type: Date, default: Date.now },
@@ -29,12 +30,20 @@ exports = module.exports = function(app, mongoose) {
       return true;
     }
 
+    if(role=== "dataEntryOperator" && this.roles.dataEntryOperator){
+      return true;
+    }
+
     return false;
   };
   userSchema.methods.defaultReturnUrl = function() {
     var returnUrl = '/';
     if (this.canPlayRoleOf('account')) {
       returnUrl = '/account/';
+    }
+
+    if(this.canPlayRoleOf('dataEntryOperator')){
+      returnUrl='/dataEntry/';
     }
 
     if (this.canPlayRoleOf('admin')) {

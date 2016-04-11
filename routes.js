@@ -28,6 +28,14 @@ function ensureAccount(req, res, next) {
   res.redirect('/');
 }
 
+function ensureDataEntryOperator( req, res, next) {
+  if(req.user.canPlayRoleOf('dataEntryOperator')){
+    return next();
+  }
+  res.redirect('/');
+
+}
+
 exports = module.exports = function(app, passport) {
   //front end
   app.get('/', require('./views/index').init);
@@ -142,6 +150,11 @@ exports = module.exports = function(app, passport) {
   app.all('/account*', ensureAuthenticated);
   app.all('/account*', ensureAccount);
   app.get('/account/', require('./views/account/index').init);
+
+  //dataEntryOperator
+  app.all('/dataEntry*',ensureAuthenticated);
+  app.all('/dataEntry*',ensureDataEntryOperator);
+  app.get('/dataEntry/', require('./views/dataEntry/index').init);
 
   //account > verification
   app.get('/account/verification/', require('./views/account/verification/index').init);
