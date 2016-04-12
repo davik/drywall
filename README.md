@@ -77,6 +77,8 @@ email address.__
 use drywall; // or your mongo db name if different
 ```
 
+### To add admins
+
 ```js
 db.admingroups.insert({ _id: 'root', name: 'Root' });
 db.admins.insert({ name: {first: 'Root', last: 'Admin', full: 'Root Admin'}, groups: ['root'] });
@@ -87,6 +89,16 @@ rootAdmin.user = { id: rootUser._id, name: rootUser.username };
 db.admins.save(rootAdmin);
 ```
 
+### To add DataEntry Operators
+
+```js
+db.dataentryoperators.insert({name: {first: 'Data', last: 'Operator', full: 'Data Operator'}});
+var operator= db.dataentryoperators.findOne();
+db.users.save({username: 'Data', isActive:'yes', email: 'your_another@email.com', roles: {dataEntryOperator: operator._id}});
+var dataUser= db.users.findOne({"username": "Data"});
+operator.user={id: dataUser._id, name: dataUser.username};
+db.dataentryoperators.save(operator);
+```
 
 ## Running the app
 
